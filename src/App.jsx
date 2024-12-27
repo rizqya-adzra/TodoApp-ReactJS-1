@@ -9,15 +9,15 @@ function App() {
     const storedTodos = localStorage.getItem("todos");
     if (storedTodos) {
       const parsedTodos = storedTodos.split(",").map((todo) => {
-        const [id, text] = todo.split("|");
-        return { id, text };
+        const [id, text, completed] = todo.split("|");
+        return { id, text, completed: completed === "true" };
       });
       setTodos(parsedTodos);
     }
   }, []);
 
   useEffect(() => {
-    const todoString = todos.map((todo) => `${todo.id}|${todo.text}`).join(",");
+    const todoString = todos.map((todo) => `${todo.id}|${todo.text}|${todo.completed}`).join(",");
     localStorage.setItem("todos", todoString);
   }, [todos]);
 
